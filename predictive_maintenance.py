@@ -12,14 +12,19 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
 import tensorflow as tf
-# from tensorflow.keras.models import Sequential, load_model
-# from tensorflow.keras.layers import Dense, Dropout, Input
-# from tensorflow.keras.optimizers import Adam
-# from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.models import Sequential, load_model
+from tensorflow.keras.layers import Dense, Dropout, Input
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
 import time
 import warnings
 warnings.filterwarnings('ignore')
+
+# Disable TensorFlow warnings
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+tf.get_logger().setLevel('ERROR')
 
 # Set page config
 st.set_page_config(
@@ -140,16 +145,15 @@ class LightweightDNN:
         self.scaler = StandardScaler()
         
     def build_model(self):
-        model = Sequential([
-            Input(shape=(self.input_dim,)),
-            Dense(128, activation='relu'),
-            Dropout(0.3),
-            Dense(64, activation='relu'),
-            Dropout(0.3),
-            Dense(32, activation='relu'),
-            Dropout(0.2),
-            Dense(1, activation='sigmoid')
-        ])
+        model = Sequential()
+        model.add(Input(shape=(self.input_dim,)))
+        model.add(Dense(128, activation='relu'))
+        model.add(Dropout(0.3))
+        model.add(Dense(64, activation='relu'))
+        model.add(Dropout(0.3))
+        model.add(Dense(32, activation='relu'))
+        model.add(Dropout(0.2))
+        model.add(Dense(1, activation='sigmoid'))
         
         model.compile(
             optimizer=Adam(learning_rate=0.001),
