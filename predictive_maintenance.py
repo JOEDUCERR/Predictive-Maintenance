@@ -1,8 +1,3 @@
-"""
-IoT Predictive Maintenance System - Streamlit Web App
-Using Edge Sensor Fusion and Lightweight Deep Learning
-"""
-
 import streamlit as st
 import numpy as np
 import pandas as pd
@@ -39,7 +34,6 @@ tf.random.set_seed(42)
 
 
 class SensorDataGenerator:
-    """Generate synthetic multi-sensor IoT data"""
     
     def __init__(self, n_samples=5000, sampling_rate=200):
         self.n_samples = n_samples
@@ -47,7 +41,6 @@ class SensorDataGenerator:
         self.window_size = 256
         
     def generate_dataset(self):
-        """Generate complete dataset with labels"""
         data = []
         labels = []
         
